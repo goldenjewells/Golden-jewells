@@ -364,6 +364,23 @@
             filter: brightness(1.2);
         }
 
+        /* Responsive Map Container */
+        .map-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 300px;
+            border: 0;
+            display: block;
+        }
+
         .footer-bottom {
             max-width: 1300px;
             margin: 70px auto 0;
@@ -404,6 +421,7 @@
             .premium-subtitle {
                 font-size: 1.2rem;
                 letter-spacing: 3px;
+                padding: 0 20px;
             }
 
             .premium-subtitle::before,
@@ -413,17 +431,55 @@
 
             .premium-description {
                 font-size: 1.2rem;
+                padding: 0 20px;
+            }
+
+            .ultra-premium-footer {
+                padding: 60px 0 30px;
             }
 
             .footer-content {
                 grid-template-columns: 1fr;
                 gap: 40px;
+                padding: 0 20px;
+            }
+
+            .footer-section {
+                padding: 0 10px;
+            }
+
+            .footer-section h3 {
+                font-size: 1.3rem;
+            }
+
+            .footer-section p {
+                font-size: 1.1rem;
+                line-height: 1.6;
+            }
+
+            .map-container iframe {
+                height: 250px;
+            }
+
+            .social-links {
+                justify-content: center;
             }
 
             .footer-bottom {
                 flex-direction: column;
-                gap: 15px;
+                gap: 20px;
                 text-align: center;
+                padding: 30px 20px 0;
+                margin-top: 50px;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .footer-links a {
+                font-size: 0.95rem;
             }
         }
 
@@ -433,12 +489,87 @@
             }
             
             .premium-subtitle {
-                font-size: 1.1rem;
+                font-size: 1rem;
                 letter-spacing: 2px;
+                margin-bottom: 30px;
             }
 
             .premium-description {
                 font-size: 1.1rem;
+                margin-bottom: 40px;
+            }
+
+            .about-button {
+                padding: 15px 35px;
+                font-size: 1rem;
+            }
+
+            .ultra-premium-footer {
+                padding: 40px 0 20px;
+            }
+
+            .footer-content {
+                padding: 0 15px;
+                gap: 30px;
+            }
+
+            .footer-logo img {
+                max-width: 180px;
+            }
+
+            .footer-section h3 {
+                font-size: 1.2rem;
+            }
+
+            .footer-section p {
+                font-size: 1rem;
+            }
+
+            .map-container iframe {
+                height: 200px;
+            }
+
+            .social-links {
+                gap: 12px;
+            }
+
+            .social-link {
+                width: 40px;
+                height: 40px;
+            }
+
+            .footer-bottom {
+                margin-top: 40px;
+                padding: 20px 15px 0;
+            }
+
+            .footer-bottom p {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 360px) {
+            .premium-subtitle {
+                font-size: 0.9rem;
+                letter-spacing: 1.5px;
+            }
+
+            .premium-description {
+                font-size: 1rem;
+            }
+
+            .footer-content {
+                padding: 0 10px;
+            }
+
+            .map-container iframe {
+                height: 180px;
+            }
+
+            .social-links {
+                flex-wrap: wrap;
+                justify-content: center;
             }
         }
     </style>
@@ -461,8 +592,7 @@
         
             <p class="premium-subtitle">ELEGANCE PERFECTED IN PRECIOUS METALS</p>
             <p class="premium-description">
-               
-Since 2008, Golden Jewels has defined timeless elegance. We exclusively showcase and sell luxurious, high-end collections and irreplaceable masterpieces—each piece meticulously curated to ensure its exclusive value and enduring artistry.
+                Since 2008, Golden Jewels has defined timeless elegance. We exclusively showcase and sell luxurious, high-end collections and irreplaceable masterpieces—each piece meticulously curated to ensure its exclusive value and enduring artistry.
             </p>
             <!-- ABOUT US button -->
             <a href="#" class="about-button">About Us</a>
@@ -476,7 +606,7 @@ Since 2008, Golden Jewels has defined timeless elegance. We exclusively showcase
                 <div class="footer-logo">
                     <img src="LOGO.png" alt="Golden Jewels Logo">
                 </div>
-                <p>Recipient of the Best Showroom in Gujarat award. We offer a privileged customer experience while presenting exclusive, masterpiece collections that embody uncompromising luxury and enduring artistry..</p>
+                <p>Recipient of the Best Showroom in Gujarat award. We offer a privileged customer experience while presenting exclusive, masterpiece collections that embody uncompromising luxury and enduring artistry.</p>
                 <p>𝗦𝗲𝗲 𝗜𝘁..𝗧𝗼 𝗙𝗲𝗲𝗹 𝗜𝘁..</p>
                 <div class="social-links">
                     <a href="https://www.instagram.com/golden_jewells_/?hl=en" class="social-link" target="_blank">
@@ -496,7 +626,15 @@ Since 2008, Golden Jewels has defined timeless elegance. We exclusively showcase
                 <p>srgoldenjewells@gmail.com</p>
                 <p><a href="https://wa.me/9726226285" target="_blank" style="color:inherit;">+91 97262 26285</a></p>
                 <p>SHOP NO 2, GROUND FLOOR, TIME SQUARE GRAND, SINDHU BHAVAN MARG, PRL COLONY, THALTEJ, AHMEDABAD, GUJARAT 380059</p>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.5166064679593!2d72.49589437588179!3d23.041514515620023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e9b2dd68d4d6d%3A0x156223b7d8d55182!2sGolden%20Jewells%20Ahmedabad!5e0!3m2!1sen!2sin!4v1765449385757!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <div class="map-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.5166064679593!2d72.49589437588179!3d23.041514515620023!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e9b2dd68d4d6d%3A0x156223b7d8d55182!2sGolden%20Jewells%20Ahmedabad!5e0!3m2!1sen!2sin!4v1765449385757!5m2!1sen!2sin" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
             </div>
         </div>
         
@@ -540,10 +678,3 @@ Since 2008, Golden Jewels has defined timeless elegance. We exclusively showcase
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
