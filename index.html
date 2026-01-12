@@ -91,6 +91,19 @@
             animation: fadeInLogo 2s ease-out forwards;
         }
 
+	.button-group {
+	    display: flex;
+	    gap: 20px;
+	    justify-content: center;
+	    flex-wrap: wrap;
+	    opacity: 0;
+	    animation: fadeInUp 1.5s ease 1.6s forwards;
+	}
+	.about-button {
+	    animation: none; 
+	    opacity: 1;
+	}
+
         @keyframes fadeInLogo {
             0% {
                 opacity: 0;
@@ -587,7 +600,7 @@
         <div class="main-content">
             <div class="logo-container">
                 <!-- Your logo file -->
-                <img src="LOGOS copy.png" alt="Golden Jewels Logo">
+                <img src="images\LOGOS copy.png" alt="Golden Jewels Logo">
             </div>
         
             <p class="premium-subtitle">ELEGANCE PERFECTED IN PRECIOUS METALS</p>
@@ -595,9 +608,8 @@
                 Since 2008, Golden Jewels has defined timeless elegance. We exclusively showcase and sell luxurious, high-end collections and irreplaceable masterpieces—each piece meticulously curated to ensure its exclusive value and enduring artistry.
             </p>
             <!-- ABOUT US button -->
-               <a href="aboutus.html" class="about-button">About Us</a> 
-  
-
+      <a href="aboutus.html" class="about-button">About Us</a>
+      <a href="productpage heaidn hide.html" class="about-button">Explore Collection</a>
         </div>
     </section>
 
@@ -606,7 +618,7 @@
         <div class="footer-content">
             <div class="footer-section">
                 <div class="footer-logo">
-                    <img src="LOGO.png" alt="Golden Jewels Logo">
+                    <img src="images\LOGO.png" alt="Golden Jewels Logo">
                 </div>
                 <p>Recipient of the Best Showroom in Gujarat award. We offer a privileged customer experience while presenting exclusive, masterpiece collections that embody uncompromising luxury and enduring artistry.</p>
                 <p>𝗦𝗲𝗲 𝗜𝘁..𝗧𝗼 𝗙𝗲𝗲𝗹 𝗜𝘁..</p>
@@ -641,7 +653,7 @@
         </div>
         
         <div class="footer-bottom">
-            <p>© 2025 GOLDEN JEWELLS. ALL RIGHTS RESERVED.</p>
+            <p>© 2024 GOLDEN JEWELLS. ALL RIGHTS RESERVED.</p>
             <div class="footer-links">
                 <a href="#">PRIVACY POLICY</a>
                 <a href="#">TERMS OF SERVICE</a>
@@ -677,12 +689,16 @@
         window.addEventListener('load', function() {
             setTimeout(typeWriter, 1000);
         });
+
+fetch('footer.html')
+  .then(r => r.text())
+  .then(d => {
+    console.log('FOOTER LOADED');
+    document.getElementById('footer').innerHTML = d;
+  })
+  .catch(err => console.error('FOOTER ERROR:', err));
     </script>
 </body>
 </html>
-
-
-
-
 
 
