@@ -1,1 +1,631 @@
-hello
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golden Jewels Journey</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  /* GLOBAL STYLING */
+  * {margin:0;padding:0;box-sizing:border-box;}
+  body {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    background: linear-gradient(135deg, #0e0e0e 0%, #1a1a1a 50%, #0c0c0c 100%);
+    color: #eee;
+    overflow-x: hidden;
+  }
+  
+  /* HEADER */
+  header {
+    text-align:center;
+    padding: 100px 20px 70px;
+    background: 
+      radial-gradient(ellipse at center, rgba(191,168,95,0.15) 0%, transparent 70%),
+      linear-gradient(to bottom, #111 0%, #0a0a0a 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M50,20 L60,40 L80,45 L65,60 L68,80 L50,70 L32,80 L35,60 L20,45 L40,40 Z" fill="none" stroke="%23e0c069" stroke-width="1" opacity="0.1"/></svg>');
+    background-size: 200px;
+    opacity: 0.3;
+    z-index: 0;
+  }
+  
+  header h1 {
+    font-size: 4.2rem;
+    color: #e0c069;
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(224, 192, 105, 0.4);
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+    animation: titleGlow 3s infinite alternate ease-in-out;
+  }
+  
+  @keyframes titleGlow {
+    0% { text-shadow: 0 0 20px rgba(224, 192, 105, 0.4); }
+    100% { text-shadow: 0 0 30px rgba(224, 192, 105, 0.7), 0 0 40px rgba(224, 192, 105, 0.3); }
+  }
+  
+  header p {
+    font-size: 1.4rem;
+    color: #d4af37;
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 1px;
+  }
+  
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    max-width: 1200px;
+    margin: 80px auto 120px;
+    padding: 0 20px;
+  }
+  
+  .timeline::after {
+    content:'';
+    position:absolute;
+    left:50%;
+    top:0;
+    transform:translateX(-50%);
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, #bfa85f, #e0c069, #bfa85f, transparent);
+    box-shadow: 0 0 15px rgba(191,168,95,0.5);
+  }
+  
+  /* Timeline decorative points - aligned with each entry */
+  .timeline-point {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 16px;
+    background: radial-gradient(circle, #e0c069 0%, #bfa85f 70%, #9c8430 100%);
+    border-radius: 50%;
+    border: 2px solid #0e0e0e;
+    box-shadow: 0 0 10px rgba(224, 192, 105, 0.7);
+    z-index: 5;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .timeline-point:hover {
+    transform: translateX(-50%) scale(1.3);
+    box-shadow: 0 0 20px rgba(224, 192, 105, 1);
+  }
+  
+  /* Position the decorative points aligned with each timeline item */
+  /* These positions will be dynamically adjusted by JavaScript */
+  
+  /* Add subtle glow effect to timeline points */
+  @keyframes pointPulse {
+    0%, 100% { box-shadow: 0 0 10px rgba(224, 192, 105, 0.7); }
+    50% { box-shadow: 0 0 15px rgba(224, 192, 105, 0.9); }
+  }
+  
+  .timeline-point {
+    animation: pointPulse 3s infinite ease-in-out;
+  }
+  
+  .timeline-point:nth-child(2) { animation-delay: 0.5s; }
+  .timeline-point:nth-child(3) { animation-delay: 1s; }
+  .timeline-point:nth-child(4) { animation-delay: 1.5s; }
+  .timeline-point:nth-child(5) { animation-delay: 2s; }
+  .timeline-point:nth-child(6) { animation-delay: 2.5s; }
+  .timeline-point:nth-child(7) { animation-delay: 3s; }
+  .timeline-point:nth-child(8) { animation-delay: 3.5s; }
+  .timeline-point:nth-child(9) { animation-delay: 4s; }
+  
+  /* TIMELINE ITEMS */
+  .timeline-item {
+    position: relative;
+    width: calc(50% - 40px);
+    margin-bottom: 80px;
+    opacity:0;
+    transform:translateY(50px) scale(0.9);
+    transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-radius: 15px;
+    overflow: hidden;
+    background: rgba(20, 20, 20, 0.7);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(191,168,95,0.2);
+  }
+  
+  .timeline-item:nth-child(odd) {
+    left: 0;
+    transform-origin: right center;
+  }
+  
+  .timeline-item:nth-child(even) {
+    left: calc(50% + 40px);
+    transform-origin: left center;
+  }
+  
+  .timeline-item.visible {
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+  
+  .timeline-item::before {
+    content:'';
+    position:absolute;
+    width: 25px;
+    height: 25px;
+    background: radial-gradient(circle, #e0c069 0%, #bfa85f 70%, #9c8430 100%);
+    border-radius:50%;
+    top: 40px;
+    z-index: 10;
+    box-shadow: 0 0 15px rgba(224, 192, 105, 0.8);
+  }
+  
+  .timeline-item:nth-child(odd)::before {
+    right: -42px;
+  }
+  
+  .timeline-item:nth-child(even)::before {
+    left: -42px;
+  }
+  
+  .timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 40px;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+  }
+  
+  .timeline-item:nth-child(odd)::after {
+    right: -15px;
+    border-left: 15px solid rgba(20, 20, 20, 0.7);
+  }
+  
+  .timeline-item:nth-child(even)::after {
+    left: -15px;
+    border-right: 15px solid rgba(20, 20, 20, 0.7);
+  }
+  
+  /* CONTENT */
+  .timeline-content {
+    padding: 25px;
+    position: relative;
+  }
+  
+  .timeline-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, #bfa85f, #e0c069, #bfa85f);
+  }
+  
+  .timeline-item img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    transition: all 0.6s ease;
+    filter: brightness(0.9) sepia(0.1);
+    border: 1px solid rgba(191,168,95,0.3);
+  }
+  
+  .timeline-item:hover img {
+    transform: scale(1.05);
+    filter: brightness(1.1) sepia(0);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+  }
+  
+  .timeline-item h3 {
+    font-size: 1.8rem;
+    color: #e0c069;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .timeline-item h3 i {
+    font-size: 1.3rem;
+    opacity: 0.8;
+  }
+  
+  .timeline-item .year {
+    font-size: 1.1rem;
+    color: #d4af37;
+    margin-bottom: 15px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  
+  .timeline-item p {
+    font-size: 1.05rem;
+    color: #ccc;
+    line-height: 1.6;
+  }
+  
+  .timeline-item .location {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 5px 15px;
+    background: rgba(191,168,95,0.1);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: #bfa85f;
+    border: 1px solid rgba(191,168,95,0.3);
+  }
+  
+  /* Showroom details */
+  .showroom-details {
+    margin-top: 15px;
+    padding: 10px 15px;
+    background: rgba(20, 20, 20, 0.5);
+    border-radius: 8px;
+    border-left: 3px solid #bfa85f;
+  }
+  
+  .showroom-details p {
+    font-size: 0.95rem;
+    color: #ddd;
+    margin-bottom: 5px;
+  }
+  
+  .showroom-details p:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* FOOTER */
+  footer {
+    text-align:center;
+    padding: 60px 20px;
+    background: linear-gradient(to top, #111 0%, #0a0a0a 100%);
+    color: #e0c069;
+    letter-spacing: 1px;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, transparent, #bfa85f, #e0c069, #bfa85f, transparent);
+  }
+  
+  .footer-content {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .footer-text {
+    font-size: 1.2rem;
+    color: #d4af37;
+    margin-bottom: 25px;
+    font-style: italic;
+  }
+  
+  .footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 30px;
+  }
+  
+  .footer-social a {
+    color: #bfa85f;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .footer-social a:hover {
+    color: #e0c069;
+    transform: translateY(-5px);
+  }
+  
+  /* RESPONSIVE */
+  @media screen and (max-width: 992px){
+    header h1 { font-size: 3.2rem; }
+    .timeline-item { width: 100%; left: 0 !important; margin-left: 60px; }
+    .timeline-item:nth-child(even)::before,
+    .timeline-item:nth-child(odd)::before { left: -42px; right: auto; }
+    .timeline-item:nth-child(even)::after,
+    .timeline-item:nth-child(odd)::after { 
+      left: -15px; 
+      right: auto;
+      border-right: 15px solid rgba(20, 20, 20, 0.7);
+      border-left: none;
+    }
+    .timeline::after { left: 30px; }
+    .timeline-point { left: 30px; transform: translateX(0); }
+  }
+  
+  @media screen and (max-width: 576px){
+    header { padding: 70px 15px 50px; }
+    header h1 { font-size: 2.5rem; }
+    .timeline-item { margin-left: 40px; }
+    .timeline::after { left: 20px; }
+    .timeline-item:nth-child(even)::before,
+    .timeline-item:nth-child(odd)::before { left: -32px; width: 20px; height: 20px; }
+    .timeline-point { left: 20px; width: 14px; height: 14px; }
+    .timeline-content { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Golden Jewels Journey</h1>
+  <p>Luxury, elegance and legacy through the years</p>
+</header>
+
+<section class="timeline">
+  <!-- Decorative points will be added dynamically by JavaScript -->
+  
+  <div class="timeline-item">
+    <div class="timeline-content">
+      <img src="images\showroom\store-2008.png" alt="Golden Jewels Surat 2008">
+      <h3><i class="fas fa-map-marker-alt"></i> Surat</h3>
+      <div class="year">2008 - Golden Jewels</div>
+      <p>The journey begins with the establishment of the first Golden Jewels store in Surat, setting a new standard for luxury jewelry in the region.</p>
+      <div class="showroom-details">
+        <p><strong>Location : </strong> Varachha, Surat </p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="timeline-item">
+    <div class="timeline-content">
+      <img src="images\showroom\store-2011.PNG" alt="Golden Jewels Surat 2011">
+      <h3><i class="fas fa-map-marker-alt"></i> Surat</h3>
+      <div class="year">2011 - Golden Jewels</div>
+      <p>Expansion and renovation of the Surat store, introducing exclusive collections that blend traditional craftsmanship with contemporary design.</p>
+      <div class="showroom-details">
+        <p><strong>Location : </strong> Varachha, Surat (Upgrade)  </p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="timeline-item">
+    <div class="timeline-content">
+      <img src="images\showroom\store-2014.jpg" alt="RD Golden Jewels Surat 2014">
+      <h3><i class="fas fa-map-marker-alt"></i> Surat</h3>
+      <div class="year">2014 - RD Golden Jewels Pvt Ltd.</div>
+      <p> As our vision expanded across a wider horizon, it proudly took the name R.D. Golden Jewells. </p>
+      <div class="showroom-details">
+
+        <p><strong>Location : </strong>Shop No 1, Dream Business house, Opp Kotak house , Ghod dod road,, Surat, Gujarat 395007</p>
+
+      </div>
+    </div>
+  </div>
+  
+  <div class="timeline-item">
+    <div class="timeline-content">
+      <img src="images\showroom\store-2016.jpg" alt="Anand Shah Golden Jewels 2016">
+      <h3><i class="fas fa-map-marker-alt"></i> Surat</h3>
+      <div class="year">2016 - Anand Shah by Golden Jewels</div>
+      <p> A new chapter begins with the launch of our boutique at Anand Shah, by Golden Jewells. </p>
+      <div class="showroom-details">
+        <p><strong>Location : </strong> Surat </p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="timeline-item">
+    <div class="timeline-content">
+      <img src="images\showroom\store-2018.jpg" alt="VR Golden Jewels Surat 2018">
+      <h3><i class="fas fa-map-marker-alt"></i> Surat</h3>
+      <div class="year">2018 -VR Golden Jewels</div>
+      <p> Golden Jewells proudly expands its presence with a new branch in Katargam, Surat. </p>
+      <div class="showroom-details">
+        <p><strong>Location : </strong> Surat </p>
+
+      </div>
+    </div>
+  </div>
+  
+  <div class="timeline-item">
+    <div class="timeline-content">
+      <img src="images\showroom\store-2021.jpg" alt="Shree Lashmi Golden Jewels Jamnagar 2021">
+      <h3><i class="fas fa-map-marker-alt"></i> Jamnagar</h3>
+      <div class="year">2021 - Shree Lashmi Golden Jewels</div>
+      <p> Proudly introducing our first franchise store, in association with Shree Lakshmi Golden Jewels. </p>
+      <div class="showroom-details">
+        <p><strong>Location : </strong> Jamnagar </p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="timeline-item">
+    <div class="timeline-content">
+      <img src="images\showroom\store-2022.jpg" alt="SR Golden Jewels Ahmedabad 2022">
+      <h3><i class="fas fa-map-marker-alt"></i> Ahmedabad</h3>
+      <div class="year">2022 - SR Golden Jewels</div>
+      <p>Entry into Gujarat's largest market with SR Golden Jewels in Ahmedabad, featuring a state-of-the-art showroom and exclusive designs.</p>
+      <div class="showroom-details">
+        <p><strong>Location : </strong> Ahmedabad </p>
+      </div>
+         </div>
+  </div>
+  
+  <div class="timeline-item">
+    <div class="timeline-content">
+      <img src="images\showroom\store-2023.jpg" alt="Golden Jewels Rajkot 2023">
+      <h3><i class="fas fa-map-marker-alt"></i> Rajkot</h3>
+      <div class="year">2023 - Golden Jewels</div>
+      <p>Second  franchise Store,</p>
+      <div class="showroom-details">
+        <p><strong>Location : </strong> Rajkot </p>
+      </div>
+         </div>
+  </div>
+  
+  <div class="timeline-item">
+    <div class="timeline-content">
+      <img src="images\showroom\store-2024.jpg" alt="Anand Shah Redesign 2024">
+      <h3><i class="fas fa-map-marker-alt"></i> Surat</h3>
+      <div class="year">2024 - Anand Shah Redesign & Jewellery Cafe</div>
+      <p>Innovative redesign of Anand Shah stores with the introduction of the first-ever Jewelry Cafe, combining luxury retail with hospitality.</p>
+      <div class="showroom-details">
+        <p><strong>Location : </strong> Surat </p>
+      </div>
+</section>
+
+<footer>
+  <div class="footer-content">
+     <img src="images\logo.png" style="height:150px; margin-bottom:20px; margin-up:-20px">
+    <p>&copy; 2025 Golden Jewels. All Rights Reserved.</p>
+    <div class="footer-social">
+      <a href="https://www.instagram.com/golden_jewells_/?hl=en"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.youtube.com/@goldenjewells"><i class="fab fa-youtube"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Function to position timeline points correctly aligned with each entry
+function positionTimelinePoints() {
+  const timeline = document.querySelector('.timeline');
+  const timelineItems = document.querySelectorAll('.timeline-item');
+  
+  // Clear any existing points
+  const existingPoints = document.querySelectorAll('.timeline-point');
+  existingPoints.forEach(point => point.remove());
+  
+  // Create and position a point for each timeline item
+  timelineItems.forEach((item, index) => {
+    const point = document.createElement('div');
+    point.className = 'timeline-point';
+    
+    // Calculate position based on the item's position
+    const itemRect = item.getBoundingClientRect();
+    const timelineRect = timeline.getBoundingClientRect();
+    
+    // Position the point at the vertical center of each timeline item
+    const itemTopRelative = itemRect.top - timelineRect.top;
+    const itemHeight = itemRect.height;
+    
+    // Position point at the center of the item (adjust for item's vertical center)
+    const pointTop = itemTopRelative + (itemHeight / 2);
+    
+    point.style.top = `${pointTop}px`;
+    
+    // Add click functionality to scroll to the corresponding item
+    point.addEventListener('click', function() {
+      item.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'center' 
+      });
+      
+      // Visual feedback
+      this.style.transform = 'translateX(-50%) scale(1.5)';
+      this.style.boxShadow = '0 0 25px rgba(224, 192, 105, 1)';
+      
+      setTimeout(() => {
+        this.style.transform = 'translateX(-50%) scale(1.3)';
+        this.style.boxShadow = '0 0 20px rgba(224, 192, 105, 0.9)';
+      }, 300);
+    });
+    
+    // Add hover effects
+    point.addEventListener('mouseover', function() {
+      this.style.transform = 'translateX(-50%) scale(1.3)';
+      this.style.boxShadow = '0 0 20px rgba(224, 192, 105, 1)';
+    });
+    
+    point.addEventListener('mouseout', function() {
+      this.style.transform = 'translateX(-50%) scale(1)';
+      this.style.boxShadow = '0 0 10px rgba(224, 192, 105, 0.7)';
+    });
+    
+    // Add animation delay for staggered effect
+    point.style.animationDelay = `${index * 0.5}s`;
+    
+    timeline.appendChild(point);
+  });
+}
+
+const items = document.querySelectorAll('.timeline-item');
+function revealItems(){
+  const triggerBottom = window.innerHeight * 0.75;
+  items.forEach(item => {
+    const itemTop = item.getBoundingClientRect().top;
+    if(itemTop < triggerBottom){
+      item.classList.add('visible');
+    }
+  });
+}
+
+// Add scroll listener with throttle for performance
+let isScrolling;
+window.addEventListener('scroll', function() {
+  window.clearTimeout(isScrolling);
+  isScrolling = setTimeout(function() {
+    revealItems();
+  }, 66);
+}, false);
+
+// Initial setup
+window.addEventListener('load', function() {
+  revealItems();
+  // Position points after a short delay to ensure DOM is fully rendered
+  setTimeout(positionTimelinePoints, 100);
+});
+
+// Reposition points on window resize
+window.addEventListener('resize', function() {
+  setTimeout(positionTimelinePoints, 100);
+});
+
+// Add a subtle parallax effect to the header
+window.addEventListener('scroll', function() {
+  const scrolled = window.pageYOffset;
+  const header = document.querySelector('header');
+  header.style.transform = 'translateY(' + (scrolled * 0.5) + 'px)';
+  header.style.opacity = 1 - (scrolled / 500);
+});
+
+// Highlight the nearest timeline point when scrolling
+window.addEventListener('scroll', function() {
+  const timelinePoints = document.querySelectorAll('.timeline-point');
+  const scrollPosition = window.pageYOffset;
+  const windowHeight = window.innerHeight;
+  
+  timelinePoints.forEach(point => {
+    const pointPosition = point.getBoundingClientRect().top + scrollPosition;
+    const distance = Math.abs(pointPosition - scrollPosition - windowHeight/2);
+    
+    if (distance < windowHeight/3) {
+      point.style.transform = 'translateX(-50%) scale(1.2)';
+      point.style.boxShadow = '0 0 18px rgba(224, 192, 105, 1)';
+    } else {
+      point.style.transform = 'translateX(-50%) scale(1)';
+      point.style.boxShadow = '0 0 10px rgba(224, 192, 105, 0.7)';
+    }
+  });
+});
+</script>
+
+</body>
+</html>
