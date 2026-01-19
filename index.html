@@ -194,19 +194,6 @@
             animation: fadeInLogo 2s ease-out forwards;
         }
 
-	.button-group {
-	    display: flex;
-	    gap: 20px;
-	    justify-content: center;
-	    flex-wrap: wrap;
-	    opacity: 0;
-	    animation: fadeInUp 1.5s ease 1.6s forwards;
-	}
-	.about-button {
-	    animation: none; 
-	    opacity: 1;
-	}
-
         @keyframes fadeInLogo {
             0% {
                 opacity: 0;
@@ -301,47 +288,7 @@
             }
         }
 
-        .about-button {
-            display: inline-block;
-            padding: 18px 48px;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            text-decoration: none;
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            background: transparent;
-            font-family: 'PT Serif', serif;
-            font-weight: 400;
-            opacity: 0;
-            animation: fadeInUp 1.5s ease 1.6s forwards;
-        }
-
-        .about-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.15), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .about-button:hover::before {
-            left: 100%;
-        }
-
-        .about-button:hover {
-            background: rgba(212, 175, 55, 0.08);
-            box-shadow: 
-                0 0 25px rgba(212, 175, 55, 0.3),
-                inset 0 0 15px rgba(212, 175, 55, 0.1);
-            letter-spacing: 3px;
-        }
-
+       
         /* Luxury Elements */
         .luxury-element {
             position: absolute;
@@ -616,11 +563,6 @@
                 margin-bottom: 40px;
             }
 
-            .about-button {
-                padding: 15px 35px;
-                font-size: 1rem;
-            }
-
             .ultra-premium-footer {
                 padding: 40px 0 20px;
             }
@@ -730,10 +672,7 @@
             <p class="premium-description">
                 Since 2008, Golden Jewels has defined timeless elegance. We exclusively showcase and sell luxurious, high-end collections and irreplaceable masterpieces—each piece meticulously curated to ensure its exclusive value and enduring artistry.
             </p>
-            <!-- ABOUT US button -->
-      <a href="aboutus.html" class="about-button">About Us</a>
-      <a href="collection.html" class="about-button">Explore Collection</a>
-        </div>
+            </div>
     </section>
 
     <!-- Ultra Premium Footer -->
