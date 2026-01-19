@@ -6,9 +6,112 @@
 <title>Golden Jewels Journey</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
+/* Navigation Styling */
+.premium-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 90px;
+    background: rgba(10, 10, 10, 0.95); /* High opacity for readability */
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+}
+
+.nav-container {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo img {
+    height: 60px;
+    filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.3));
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #e5e4e2; /* Platinum color */
+    font-family: 'PT Serif', serif;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 5px 0;
+}
+
+/* The Click/Active Effect */
+.nav-links a:hover, 
+.nav-links a.active {
+    color: #d4af37; /* Gold color */
+}
+
+/* Underline animation */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: #d4af37;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+/* Mobile Menu Button */
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 2px;
+    margin: 5px auto;
+    background-color: #d4af37;
+    transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 768px) {
+    .menu-toggle { display: block; }
+    .nav-links {
+        position: fixed;
+        left: -100%;
+        top: 90px;
+        flex-direction: column;
+        background: rgba(10, 10, 10, 0.98);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        padding: 40px 0;
+        border-bottom: 1px solid #d4af37;
+    }
+    .nav-links.active { left: 0; }
+}
+
   /* GLOBAL STYLING */
   * {margin:0;padding:0;box-sizing:border-box;}
   body {
+
     font-family: 'Cormorant Garamond', 'Times New Roman', serif;
     background: linear-gradient(135deg, #0e0e0e 0%, #1a1a1a 50%, #0c0c0c 100%);
     color: #eee;
@@ -373,6 +476,25 @@
 </style>
 </head>
 <body>
+<nav class="premium-nav">
+    <div class="nav-container">
+        <a href="index.html" class="nav-logo">
+            <img src="images/LOGO.png" alt="Golden Jewels">
+        </a>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="collection.html">Collection</a></li>
+            <li><a href="aboutus.html">About Us</a></li>
+        </ul>
+    </div>
+</nav>
 
 <header>
   <h1>Golden Jewels Journey</h1>
@@ -434,9 +556,9 @@
   
   <div class="timeline-item">
     <div class="timeline-content">
-      <img src="images\store-2018.jpg" alt="VR Golden Jewels Surat 2018">
+      <img src="images\store-2018.jpg" alt="VR Golden Jewels Surat 2019">
       <h3><i class="fas fa-map-marker-alt"></i> Surat</h3>
-      <div class="year">2018 -VR Golden Jewels</div>
+      <div class="year">2019 -VR Golden Jewels</div>
       <p> Golden Jewells proudly expands its presence with a new branch in Katargam, Surat. </p>
       <div class="showroom-details">
         <p><strong>Location : </strong> Surat </p>
@@ -494,16 +616,52 @@
 
 <footer>
   <div class="footer-content">
-     <img src="images\LOGO.png" style="height:150px; margin-bottom:20px; margin-up:-20px">
-    <p>&copy; 2025 Golden Jewels. All Rights Reserved.</p>
+     <img src="images/LOGO.png" alt="S R Golden Jewells" style="height:120px; margin-bottom:10px;">
+     <p class="footer-text">Luxury, Elegance, and Legacy</p>
+     
+     <div class="footer-links" style="margin: 20px 0; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+        <a href="Terms & Conditions.html" style="color: #bfa85f; text-decoration: none; font-size: 0.9rem; letter-spacing: 1px; transition: 0.3s;">Terms & Conditions</a>
+        <a href="Shipping & Delivery Policy.html" style="color: #bfa85f; text-decoration: none; font-size: 0.9rem; letter-spacing: 1px; transition: 0.3s;">Shipping & Delivery</a>
+        <a href="Cancellation & Refund Policy.html" style="color: #bfa85f; text-decoration: none; font-size: 0.9rem; letter-spacing: 1px; transition: 0.3s;">Cancellation & Refund</a>
+        <a href="Privacy Policy.html" style="color: #bfa85f; text-decoration: none; font-size: 0.9rem; letter-spacing: 1px; transition: 0.3s;">Privacy Policy</a>
+     </div>
+
+    <p style="font-size: 0.8rem; opacity: 0.6;">&copy; 2025 Golden Jewels. All Rights Reserved.</p>
+    
     <div class="footer-social">
       <a href="https://www.instagram.com/golden_jewells_/?hl=en"><i class="fab fa-instagram"></i></a>
       <a href="https://www.youtube.com/@goldenjewells"><i class="fab fa-youtube"></i></a>
     </div>
   </div>
 </footer>
-
 <script>
+// Mobile Menu Toggle
+const menu = document.querySelector('#mobile-menu');
+const menuLinks = document.querySelector('.nav-links');
+
+menu.addEventListener('click', function() {
+    menuLinks.classList.toggle('active');
+    // Optional: Transform bars into an 'X'
+    this.classList.toggle('is-active'); 
+});
+
+// Automatic Active Link Highlight (The Click Effect)
+document.addEventListener("DOMContentLoaded", function() {
+    const currentPath = window.location.pathname.split("/").pop();
+    const navItems = document.querySelectorAll(".nav-links a");
+
+    navItems.forEach(link => {
+        // If the href matches the current file name, add 'active' class
+        if (link.getAttribute("href") === currentPath) {
+            link.classList.add("active");
+        }
+        // Special case for homepage
+        if (currentPath === "" || currentPath === "index.html") {
+            if (link.getAttribute("href") === "index.html") link.classList.add("active");
+        }
+    });
+});
+
 // Function to position timeline points correctly aligned with each entry
 function positionTimelinePoints() {
   const timeline = document.querySelector('.timeline');
@@ -626,10 +784,5 @@ window.addEventListener('scroll', function() {
   });
 });
 </script>
-
 </body>
-
 </html>
-
-
-
