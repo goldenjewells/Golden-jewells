@@ -10,6 +10,108 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
+/* Navigation Styling */
+.premium-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 90px;
+    background: rgba(10, 10, 10, 0.95); /* High opacity for readability */
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+}
+
+.nav-container {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo img {
+    height: 60px;
+    filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.3));
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #e5e4e2; /* Platinum color */
+    font-family: 'PT Serif', serif;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 5px 0;
+}
+
+/* The Click/Active Effect */
+.nav-links a:hover, 
+.nav-links a.active {
+    color: #d4af37; /* Gold color */
+}
+
+/* Underline animation */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: #d4af37;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+/* Mobile Menu Button */
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 2px;
+    margin: 5px auto;
+    background-color: #d4af37;
+    transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 768px) {
+    .menu-toggle { display: block; }
+    .nav-links {
+        position: fixed;
+        left: -100%;
+        top: 90px;
+        flex-direction: column;
+        background: rgba(10, 10, 10, 0.98);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        padding: 40px 0;
+        border-bottom: 1px solid #d4af37;
+    }
+    .nav-links.active { left: 0; }
+}
+
         :root {
             --gold: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             --solid-gold: #c5a059;
@@ -146,10 +248,42 @@
             border-color: var(--solid-gold);
             background: rgba(199, 162, 75, 0.05);
         }
-        .icon-container { width: 80px; height: 80px; margin: 0 auto 25px; }
+        .icon-container { width: 100px; height: 100px; margin: 0 auto 25px; }
         .icon-container img { width: 100%; height: 100%; object-fit: contain; filter: sepia(1) brightness(1.2); }
-        .trust-card h3 { font-family: 'Cinzel'; font-size: 12px; color: var(--solid-gold); margin-bottom: 12px; letter-spacing: 2px; }
-        .trust-card p { font-size: 13px; color: var(--muted); line-height: 1.6; font-style: italic; }
+        .trust-card h3 { font-family: 'Cinzel'; font-size: 20px; color: var(--solid-gold); margin-bottom: 12px; letter-spacing: 2px; }
+        .trust-card p { font-size: 17px; color:#dddddd; line-height: 1.6; }
+
+	/* LUXURY FOOTER LINKS */
+        .footer-legal-nav {
+            margin: 40px 0;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .legal-link {
+            text-decoration: none;
+            color: var(--solid-gold);
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+            opacity: 0.6;
+            position: relative;
+        }
+
+        .legal-link:hover {
+            opacity: 1;
+            text-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
+            transform: translateY(-2px);
+        }
+
+      
+        @media (max-width: 768px) {
+            .footer-legal-nav { gap: 20px; flex-direction: column; }
+        }
 
         /* RESPONSIVE */
         @media (max-width: 1200px) {
@@ -165,6 +299,26 @@
     </style>
 </head>
 <body>
+<nav class="premium-nav">
+    <div class="nav-container">
+        <a href="index.html" class="nav-logo">
+            <img src="images/LOGO.png" alt="Golden Jewels">
+        </a>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="collection.html">Collection</a></li>
+            <li><a href="aboutus.html">About Us</a></li>
+        </ul>
+    </div>
+</nav>
+
 
 <div id="loader">
     <img src="images/LOGO.png" alt="Logo" class="loader-logo-img">
@@ -250,12 +404,58 @@
     </div>
 </section>
 
-<footer style="text-align: center; padding: 80px 20px; color: #444; font-size: 1rem; letter-spacing: 4px; font-family: 'Cinzel';">
-    &copy; 2026 ROYAL GOLD. ALL RIGHTS RESERVED.
+<footer style="background: #000; padding: 100px 20px 60px; border-top: 1px solid rgba(197, 160, 89, 0.05); text-align: center;">
+    
+    <div data-aos="fade-up">
+        <img src="images/LOGO.png" alt="Royal Gold" style="width: 100px; margin-bottom: 20px; filter: brightness(1.1);">
+    </div>
+
+    <nav class="footer-legal-nav" data-aos="fade-up" data-aos-delay="200">
+        <a href="Terms & Conditions.html" class="legal-link">Terms & Conditions</a>
+        <a href="Shipping & Delivery Policy.html" class="legal-link">Shipping & Delivery</a>
+        <a href="Cancellation & Refund Policy.html" class="legal-link">Cancellation & Refund</a>
+        <a href="Privacy Policy.html" class="legal-link">Privacy Policy</a>
+    </nav>
+
+    <div style="margin-bottom: 40px; display: flex; justify-content: center; gap: 20px;" data-aos="fade-up" data-aos-delay="300">
+        <a href="#" style="color: var(--solid-gold); font-size: 1.2rem; transition: 0.3s;"><i class="fab fa-instagram"></i></a>
+        <a href="#" style="color: var(--solid-gold); font-size: 1.2rem; transition: 0.3s;"><i class="fab fa-youtube"></i></a>
+    </div>
+
+    <p style="color: #333; font-size: 0.7rem; letter-spacing: 5px; font-family: 'Cinzel'; text-transform: uppercase;" data-aos="fade-up" data-aos-delay="400">
+        &copy; 2026 ROYAL GOLD. ALL RIGHTS RESERVED.
+    </p>
 </footer>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
+// Mobile Menu Toggle
+const menu = document.querySelector('#mobile-menu');
+const menuLinks = document.querySelector('.nav-links');
+
+menu.addEventListener('click', function() {
+    menuLinks.classList.toggle('active');
+    // Optional: Transform bars into an 'X'
+    this.classList.toggle('is-active'); 
+});
+
+// Automatic Active Link Highlight (The Click Effect)
+document.addEventListener("DOMContentLoaded", function() {
+    const currentPath = window.location.pathname.split("/").pop();
+    const navItems = document.querySelectorAll(".nav-links a");
+
+    navItems.forEach(link => {
+        // If the href matches the current file name, add 'active' class
+        if (link.getAttribute("href") === currentPath) {
+            link.classList.add("active");
+        }
+        // Special case for homepage
+        if (currentPath === "" || currentPath === "index.html") {
+            if (link.getAttribute("href") === "index.html") link.classList.add("active");
+        }
+    });
+});
+
     AOS.init({ duration: 1200, once: true });
     window.addEventListener('load', () => {
         setTimeout(() => {
@@ -268,10 +468,4 @@
 
 </body>
 </html>
-
-
-
-
-
-
 
