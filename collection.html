@@ -6,22 +6,28 @@
     <title>The Prestige | Royal Gold & Diamonds</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="images/LOGO.png">
+    
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
 /* Navigation Styling */
 .premium-nav {
-    position: fixed;
+    position: fixed; /* Changed from relative to fixed */
     top: 0;
     width: 100%;
     height: 90px;
-    background: rgba(10, 10, 10, 0.95); /* High opacity for readability */
+    background: rgba(10, 10, 10, 0.95);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(212, 175, 55, 0.2);
     z-index: 1000;
     display: flex;
     align-items: center;
+    transition: transform 0.4s ease-in-out; /* This makes it slide smoothly */
+}
+
+/* Add this new class */
+.nav-hidden {
+    transform: translateY(-100%); /* Slides the header up out of view */
 }
 
 .nav-container {
@@ -326,7 +332,7 @@
 
 <section class="hero">
     <h1 class="gold-title" data-aos="fade-down">The Masterpieces</h1>
-    <p data-aos="fade-up" data-aos-delay="300">"Beyond Luxury: See it.. To Feel it..</p>
+    <p data-aos="fade-up" data-aos-delay="300">Beyond Luxury: See it.. To Feel it..</p>
 </section>
 
 <div class="container">
@@ -389,7 +395,7 @@
         <div class="trust-card" data-aos="fade-up" data-aos-delay="200">
             <div class="icon-container"><img src="images/insured-shipping.png" alt="Shipping"></div>
             <h3>Insured Shipping</h3>
-            <p>Secure door-to-door delivery worldwide.</p>
+            <p>Secure door-to-door delivery.</p>
         </div>
         <div class="trust-card" data-aos="fade-up" data-aos-delay="300">
             <div class="icon-container"><img src="images/stores-india.png" alt="Stores"></div>
@@ -464,10 +470,31 @@ document.addEventListener("DOMContentLoaded", function() {
             setTimeout(() => loader.style.display = 'none', 1000);
         }, 1200);
     });
+let lastScrollY = window.scrollY;
+const premiumNav = document.querySelector('.premium-nav');
+
+window.addEventListener('scroll', () => {
+    // 1. Check if we are scrolling down
+    if (lastScrollY < window.scrollY && window.scrollY > 150) {
+        // Scrolling Down - Hide Nav
+        premiumNav.classList.add('nav-hidden');
+    } else {
+        // 2. Scrolling Up - Show Nav
+        premiumNav.classList.remove('nav-hidden');
+    }
+    
+    // Update the last scroll position
+    lastScrollY = window.scrollY;
+});
+
 </script>
 
 </body>
 </html>
+
+
+
+
 
 
 
