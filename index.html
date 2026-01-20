@@ -2,23 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-	<link rel="icon" type="image/png" href="images/LOGO.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Golden Jewels | Luxury Jewelry</title>
     <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="images/LOGO.png">
     <style>
 	/* Navigation Styling */
 .premium-nav {
-    position: fixed;
+    position: fixed; /* Changed from relative to fixed */
     top: 0;
     width: 100%;
     height: 90px;
-    background: rgba(10, 10, 10, 0.9);
+    background: rgba(10, 10, 10, 0.95);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(212, 175, 55, 0.2);
     z-index: 1000;
     display: flex;
     align-items: center;
+    transition: transform 0.4s ease-in-out; /* This makes it slide smoothly */
+}
+
+/* Add this new class */
+.nav-hidden {
+    transform: translateY(-100%); /* Slides the header up out of view */
 }
 
 .nav-container {
@@ -289,7 +295,52 @@
             }
         }
 
-       
+       /* 1. Container that holds everything */
+  .video-background-container {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Full screen height */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000; /* Fallback color */
+  }
+
+  /* 2. The Video styling */
+  .video-background-container video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover; /* Ensures video fills screen without stretching */
+    z-index: 1;
+  }
+
+  /* 3. Dark Overlay (Makes any text on top readable) */
+  .video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Adjust 0.3 to make it darker or lighter */
+    z-index: 2;
+  }
+
+  /* 4. Content on top of video */
+  .video-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    color: #ffffff;
+    font-family: sans-serif;
+  }
+
         /* Luxury Elements */
         .luxury-element {
             position: absolute;
@@ -675,6 +726,19 @@
             </p>
             </div>
     </section>
+<div class="video-background-container">
+  <video autoplay muted loop playsinline>
+    <source src="Video/reel.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <div class="video-overlay"></div>
+
+  <div class="video-content">
+    <h1 style="font-size: 3rem; margin-bottom: 10px;">SR GOLDEN JEWELS</h1>
+    <p style="font-size: 1.2rem;">Exquisite Designs Since 2014</p>
+  </div>
+</div>
 
     <!-- Ultra Premium Footer -->
     <footer class="ultra-premium-footer">
@@ -769,7 +833,27 @@ fetch('footer.html')
     document.getElementById('footer').innerHTML = d;
   })
   .catch(err => console.error('FOOTER ERROR:', err));
+let lastScrollY = window.scrollY;
+const premiumNav = document.querySelector('.premium-nav');
+
+window.addEventListener('scroll', () => {
+    // 1. Check if we are scrolling down
+    if (lastScrollY < window.scrollY && window.scrollY > 150) {
+        // Scrolling Down - Hide Nav
+        premiumNav.classList.add('nav-hidden');
+    } else {
+        // 2. Scrolling Up - Show Nav
+        premiumNav.classList.remove('nav-hidden');
+    }
+    
+    // Update the last scroll position
+    lastScrollY = window.scrollY;
+});
+
     </script>
 </body>
 </html>
+
+
+
 
